@@ -1,12 +1,15 @@
 import { Body, Controller,Request, Get, NotFoundException, Param, ParseUUIDPipe, Post, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { JwtAuthGuard } from 'src/guards/jwt-auth.guard';
+import { Serialize } from 'src/serializer/serializer.interceptor';
+import { UserDto } from './dtos/user.dto';
 
 import { UserService } from './user.service';
 
 @ApiTags('Users')
 @ApiBearerAuth('JWT')
 @Controller('api/users')
+@Serialize(UserDto)
 export class UserController {
 
     constructor(private userService: UserService){}
